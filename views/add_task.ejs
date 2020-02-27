@@ -1,18 +1,5 @@
 <%- include ('includes/header') -%> <%- include ('menu') -%>
 <div class="container">
-  <% if (locals.errors) { %>
-  <ul>
-    <% Object.values(errors).forEach(function(error){ %>
-    <p class="alert alert-danger"><%= error %></p>
-    <% }); %>
-  </ul>
-  <% } %> <% if (locals.success) { %>
-  <ul>
-    <% Object.values(success).forEach(function(success){ %>
-    <p class="alert alert-success"><%= success %></p>
-    <% }); %>
-  </ul>
-  <% } %>
 
   <form action="/add_task" method="POST">
     <div class="form-group">

@@ -5,7 +5,7 @@ var logger = require('morgan');
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
 
-var indexRouter = require('./server/routes/index');
+var indexRouter = require('./server/routes/route_index');
 var usersRouter = require('./server/routes/users');
 const flash = require('express-flash-notification');
 const cookieParser = require('cookie-parser');
@@ -36,23 +36,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(cookieParser());
-app.use(session({
-  secret: 'djhxcvxfgshajfgjhgsjhfgsakjeauytsdfy',
-  resave: false,
-  saveUninitialized: true
-}));
 app.use(flash(app));
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 module.exports = app;
 
