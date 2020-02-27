@@ -24,17 +24,29 @@
         <th scope="row"><%= index+1 %></th>
         <td><%= el.task_name %></td>
         <td><%= el.task_description %></td>
-        <td><%= el.task_status %></td>
         <td>
-          <a href="change_status/<%= el._id %>"> 
+          <% if(el.task_status == 'incomplete') { %>
+          <p class="text-danger"><%= el.task_status %></p>
+          <% } else { %>
+          <p class="text-success"><%= el.task_status %></p>
+          <% } %>
+        </td>
+        <td>
+          <a href="change_status/<%= el._id %>">
             <button type="button" class="btn btn-outline-primary">
-            Change Status 
-          </button>
+              Change Status
+            </button>
           </a>
-          <a href="delete_task/<%= el._id %>"> 
-          <button type="button" class="btn btn-outline-danger">
-            Delete
-          </button></a>
+          <a href="edit_task/<%= el._id %>">
+            <button type="button" class="btn btn-outline-success">
+              Edit
+            </button></a
+          >
+          <a href="delete_task/<%= el._id %>">
+            <button type="button" class="btn btn-outline-danger">
+              Delete
+            </button></a
+          >
         </td>
       </tr>
       <% }); %>

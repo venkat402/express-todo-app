@@ -1,0 +1,45 @@
+<%- include ('includes/header') -%> <%- include ('menu') -%>
+
+<div class="container">
+  <form action="/edit_task/<%= task[0]._id %>" method="POST">
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Task Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="task_name"
+        placeholder="example task..."
+        value="<%= task[0].task_name %>"
+      />
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Select task status</label>
+      <select
+        class="form-control"
+        name="task_status"
+        id="exampleFormControlSelect1"
+      >
+        <% if(task[0].task_status == 'completed'){ %>
+        <option value="completed" selected>completed</option>
+        <option value="incomplete">incomplete</option>
+        <% } else{ %>
+        <option value="completed">completed</option>
+        <option value="incomplete" selected>incomplete</option>
+        <% } %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Task description</label>
+      <textarea
+        name="task_description"
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+      >
+<%= task[0].task_description %></textarea
+      >
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Update</button>
+  </form>
+</div>
+<%- include ('includes/footer') -%>
