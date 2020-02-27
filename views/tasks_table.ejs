@@ -1,32 +1,43 @@
+<style>
+  a {
+  }
+  a:hover {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
 <div class="container">
   <table class="table">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Task Name</th>
+        <th scope="col">Task Description</th>
+        <th scope="col">Task status</th>
+        <th scope="col">Options</th>
       </tr>
     </thead>
     <tbody>
+      <% tasks.forEach(function(el, index) { %>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <th scope="row"><%= index+1 %></th>
+        <td><%= el.task_name %></td>
+        <td><%= el.task_description %></td>
+        <td><%= el.task_status %></td>
+        <td>
+          <a href="change_status/<%= el._id %>"> 
+            <button type="button" class="btn btn-outline-primary">
+            Change Status 
+          </button>
+          </a>
+          <a href="delete_task/<%= el._id %>"> 
+          <button type="button" class="btn btn-outline-danger">
+            Delete
+          </button></a>
+        </td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
+      <% }); %>
     </tbody>
   </table>
 </div>

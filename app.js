@@ -1,13 +1,15 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require("mongoose");
+var bodyParser = require('body-parser');
 
 var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
-
+const flash = require('express-flash-notification');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 var app = express();
 
 // view engine setup
@@ -17,21 +19,32 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser()); 
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.urlencoded())
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+app.use(cookieParser());
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
+app.use(cookieParser());
+app.use(session({
+  secret: 'djhxcvxfgshajfgjhgsjhfgsakjeauytsdfy',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(flash(app));
+
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -44,6 +57,7 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 const port = 3000;
-app.listen(port, (req,res) => {
+app.listen(port, (req, res) => {
+  require('./server/configuration/database');
   console.log("app started on port " + port);
 });

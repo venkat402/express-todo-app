@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // We need to difine the URL
-var URL = process.env.URL || 'mongodb://localhost/todo-app';
+var URL = process.env.URL || 'mongodb://localhost:27017/todo-app';
 
 mongoose.set('useCreateIndex', true);
 
@@ -27,3 +27,5 @@ db.on('error', () => {
 db.on('open', () => {
     console.log('DB Connection established successfully');
 });
+
+module.exports = db;
